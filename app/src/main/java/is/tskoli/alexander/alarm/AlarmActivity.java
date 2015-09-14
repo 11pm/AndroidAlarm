@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -18,16 +20,44 @@ public class AlarmActivity extends AppCompatActivity {
         setContentView(R.layout.activity_alarm);
 
         Intent intent = getIntent();
+        //get the variable from MainActivity
+        final int position = intent.getIntExtra("position", 0);
 
-        int position = intent.getIntExtra("position", 0);
-
+        //get the alarm the user clicked
         alarm = Alarm.get().get(position);
 
+        //set alarm info into the view
         TextView details = (TextView) findViewById(R.id.alarmEditDetails);
 
         details.setText(alarm.details);
 
-        TimePicker time = (TimePicker) findViewById(R.id.alarmEditTime);
+        final TimePicker time = (TimePicker) findViewById(R.id.alarmEditTime);
+
+        time.setIs24HourView(true);
+    
+        //time.setHour does not work but this is deprecated but works
+        //ignore the deprecation (i know it's code gore)
+
+        //noinspection deprecation
+        time.setCurrentHour(new Integer(alarm.hour));
+        //noinspection deprecation
+        time.setCurrentMinute(new Integer(alarm.minute));
+
+        //when the user clicks the save button we redirect him back and update the alarm
+        Button saveBtn = (Button) findViewById(R.id.alarmEditSave);
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AlarmItem newAlarm = new AlarmItem(alarm.details, time.getCurrentHour(), time.getCurrentMinute());
+                Alarm.update(position, newAlarm);
+
+                Intent redirect = new Intent(AlarmActivity.this, MainActivity.class);
+
+                startActivity(redirect);
+
+            }
+        });
 
 
 

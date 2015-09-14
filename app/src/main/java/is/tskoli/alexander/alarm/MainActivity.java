@@ -34,9 +34,12 @@ public class MainActivity extends AppCompatActivity {
         //get the alarm list
         list = (ListView) findViewById(R.id.alarmList);
 
-        Alarm.save(new AlarmItem("", 07, 20, 00));
+        //remove all view so we dont get duplicates
+        //list.removeAllViews();
 
-        Alarm.save(new AlarmItem("Coolio", 15, 35, 00));
+        Alarm.save(new AlarmItem("", 7, 20));
+
+        Alarm.save(new AlarmItem("Coolio", 15, 35));
 
         //initialize the adapter
         ArrayAdapter<AlarmItem> arrayAdapter = new AlarmAdapter();
@@ -94,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
 
             //E H:m:s
             TextView alarmTime = (TextView) alarmView.findViewById(R.id.alarmListTime);
-            String time = String.format();
+            String time = String.format("%1$d : %2$d", curAlarm.hour, curAlarm.minute);
             alarmTime.setText(time);
 
 

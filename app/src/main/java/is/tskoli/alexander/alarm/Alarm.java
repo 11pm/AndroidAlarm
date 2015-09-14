@@ -17,6 +17,10 @@ public class Alarm {
         alarms.add(alarm);
     }
 
+    //update a existing Alarm
+    public static void update(int position, AlarmItem alarm){
+        alarms.set(position, alarm);
+    }
 
     public static List<AlarmItem> get(){
         return alarms;

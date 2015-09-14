@@ -36,8 +36,8 @@
         android:layout_height="wrap_content"
         android:text="CANCEL"
         android:id="@+id/alarmEditCancel"
-        android:layout_alignTop="@+id/alarmEditSave"
-        android:layout_alignRight="@+id/timePicker"
-        android:layout_alignEnd="@+id/timePicker" />
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/alarmEditSave"
+        android:layout_toEndOf="@+id/alarmEditSave" />
 
 </RelativeLayout>

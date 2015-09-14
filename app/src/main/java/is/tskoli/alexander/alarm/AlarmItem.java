@@ -9,16 +9,14 @@ import java.util.Date;
 public class AlarmItem {
 
     protected String details = "";
-    protected Integer hour;
-    protected Integer minute;
-    protected Integer second;
+    protected int hour;
+    protected int minute;
 
-    public AlarmItem(String _details, Integer _hour, Integer _minute, Integer _second){
+    public AlarmItem(String _details, int _hour, int _minute){
 
         this.details = _details;
         this.hour    = _hour;
         this.minute  = _minute;
-        this.second  = _second;
 
     }
 
