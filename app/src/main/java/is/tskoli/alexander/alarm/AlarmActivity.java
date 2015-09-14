@@ -54,11 +54,26 @@ public class AlarmActivity extends AppCompatActivity {
 
                 Intent redirect = new Intent(AlarmActivity.this, MainActivity.class);
 
-                startActivity(redirect);
+                //startActivity(redirect);
 
+                finish();
             }
         });
 
+
+        Button cancelBtn = (Button) findViewById(R.id.alarmEditCancel);
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                finish();
+
+                //Intent redirect = new Intent(AlarmActivity.this, MainActivity.class);
+
+                //s/tartActivity(redirect);
+
+            }
+        });
 
 
     }

@@ -16,7 +16,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,28 +27,36 @@ public class MainActivity extends AppCompatActivity {
 
     ListView list;
 
+    Runnable runner;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        layout = (RelativeLayout) findViewById(R.id.layout);
+        if(savedInstanceState == null){
+            Log.wtf("wtf", "first");
+        }
+        else{
+            Log.wtf("wtf", " not first");
+        }
+
 
         //get the alarm list
         list = (ListView) findViewById(R.id.alarmList);
 
-        //remove all view so we dont get duplicates
-        //list.removeAllViews();
 
         Alarm.save(new AlarmItem("", 7, 20));
 
-        Alarm.save(new AlarmItem("Coolio", 15, 35));
+        Alarm.save(new AlarmItem("Coolio", 14, 10));
 
         //initialize the adapter
-        ArrayAdapter<AlarmItem> arrayAdapter = new AlarmAdapter();
+        final ArrayAdapter<AlarmItem> arrayAdapter = new AlarmAdapter();
 
         //connect the adapter to the list
         list.setAdapter(arrayAdapter);
+
+
 
         //set onclick listener
         list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
@@ -69,7 +80,27 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
+        for(AlarmItem a : Alarm.get()){
+            //start the alarm timer
+            alarmTimer(a);
+        }
+
     }
+
+    //when we come back we redraw
+    @Override
+    protected void onRestart(){
+
+        super.onRestart();
+
+        //initialize the adapter
+        final ArrayAdapter<AlarmItem> arrayAdapter = new AlarmAdapter();
+
+        //connect the adapter to the list
+        list.setAdapter(arrayAdapter);
+
+    }
+
 
     private class AlarmAdapter extends ArrayAdapter<AlarmItem>{
 
@@ -107,7 +138,25 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void alarmTimer(AlarmItem alarm){
 
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.HOUR_OF_DAY, alarm.hour);
+        c.set(Calendar.MINUTE, alarm.minute);
+        c.set(Calendar.SECOND, 1);
+
+        Date time = c.getTime();
+
+        Log.wtf("wtf", time.toString());
+
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Log.wtf("wtf", "TIMES UP");
+            }
+        }, time);
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
