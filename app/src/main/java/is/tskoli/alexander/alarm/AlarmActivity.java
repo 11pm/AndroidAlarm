@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 public class AlarmActivity extends AppCompatActivity {
 
@@ -22,9 +23,13 @@ public class AlarmActivity extends AppCompatActivity {
 
         alarm = Alarm.get().get(position);
 
-        TextView details = (TextView) findViewById(R.id.alarmDetails2);
+        TextView details = (TextView) findViewById(R.id.alarmEditDetails);
 
         details.setText(alarm.details);
+
+        TimePicker time = (TimePicker) findViewById(R.id.alarmEditTime);
+
+
 
     }
 

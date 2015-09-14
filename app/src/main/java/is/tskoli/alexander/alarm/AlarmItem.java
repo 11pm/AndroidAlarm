@@ -8,15 +8,18 @@ import java.util.Date;
  */
 public class AlarmItem {
 
-    protected Integer id;
     protected String details = "";
-    protected Date time;
+    protected Integer hour;
+    protected Integer minute;
+    protected Integer second;
 
-    public AlarmItem(Date _time, String _details){
+    public AlarmItem(String _details, Integer _hour, Integer _minute, Integer _second){
 
-        this.id      = 1;
-        this.time    = _time;
         this.details = _details;
+        this.hour    = _hour;
+        this.minute  = _minute;
+        this.second  = _second;
+
     }
 
 }
