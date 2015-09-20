@@ -52,8 +52,6 @@ public class AlarmActivity extends AppCompatActivity {
                 AlarmItem newAlarm = new AlarmItem(alarm.details, time.getCurrentHour(), time.getCurrentMinute());
                 Alarm.update(position, newAlarm);
 
-
-
                 finish();
             }
         });

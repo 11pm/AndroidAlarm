@@ -14,7 +14,11 @@ public class Alarm {
 
     //add the current instance of Alarm
     public static void save(AlarmItem alarm){
+
+        TimerHelper.save(alarm);
         alarms.add(alarm);
+
+
     }
 
     //update a existing Alarm

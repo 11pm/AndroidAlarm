@@ -1,5 +1,7 @@
 package is.tskoli.alexander.alarm;
 
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -14,7 +16,14 @@ import java.util.TimerTask;
  */
 public class TimerHelper {
 
+    private static Context context;
+
     public static List<Timer> timers = new ArrayList<Timer>();
+
+    //set the context
+    public static void setContext(Context c){
+        context = c;
+    }
 
     public static void save(final AlarmItem alarm){
 
@@ -32,6 +41,7 @@ public class TimerHelper {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
+
                 ring(alarm);
             }
         }, time);
@@ -39,8 +49,18 @@ public class TimerHelper {
         timers.add(timer);
     }
 
-    public static void ring(AlarmItem alarm){
+    private static void ring(AlarmItem alarm){
         Log.wtf("wtf", "RINGING");
+        Log.wtf("wtf", "RINGING");
+
+        //open the activity
+        Intent intent = new Intent(context, AlarmRingActivity.class);
+
+        context.startActivity(intent);
+
+
+
     }
+
 
 }

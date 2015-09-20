@@ -11,16 +11,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,13 +28,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if(savedInstanceState == null){
-            Log.wtf("wtf", "first");
-        }
-        else{
-            Log.wtf("wtf", " not first");
-        }
-
+        //set the context so we change activities from the static class
+        TimerHelper.setContext(this);
 
         //get the alarm list
         list = (ListView) findViewById(R.id.alarmList);
@@ -49,9 +37,7 @@ public class MainActivity extends AppCompatActivity {
         //get the 'new alarm' button
         newAlarm = (Button) findViewById(R.id.newAlarm);
 
-        Alarm.save(new AlarmItem("", 7, 20));
-
-        Alarm.save(new AlarmItem("Coolio", 17, 2));
+        Alarm.save(new AlarmItem("Coolio", 21, 40));
 
         //initialize the adapter
         final ArrayAdapter<AlarmItem> arrayAdapter = new AlarmAdapter();
@@ -62,10 +48,10 @@ public class MainActivity extends AppCompatActivity {
 
 
         //set onclick listener
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
-            public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id){
+            public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id) {
 
                 //get the clicked alarm item object
                 AlarmItem clickedAlarm = Alarm.get().get(position);
@@ -87,17 +73,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(MainActivity.this, NewAlarm.class);
+                Intent intent = new Intent(MainActivity.this, NewAlarmActivity.class);
 
-                //go to the 'NewAlarm' screen
+                //go to the 'NewAlarmActivity' screen
                 startActivity(intent);
             }
         });
-
-        for(AlarmItem a : Alarm.get()){
-            //start the alarm timer
-            TimerHelper.save(a);
-        }
 
     }
 
@@ -152,27 +133,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-
-    public void alarmTimer(AlarmItem alarm){
-
-        Calendar c = Calendar.getInstance();
-        c.set(Calendar.HOUR_OF_DAY, alarm.hour);
-        c.set(Calendar.MINUTE, alarm.minute);
-        c.set(Calendar.SECOND, 1);
-
-        Date time = c.getTime();
-
-        Log.wtf("wtf", time.toString());
-
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-                Log.wtf("wtf", "TIMES UP");
-            }
-        }, time);
-
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
