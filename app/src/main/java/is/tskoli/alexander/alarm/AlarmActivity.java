@@ -52,9 +52,7 @@ public class AlarmActivity extends AppCompatActivity {
                 AlarmItem newAlarm = new AlarmItem(alarm.details, time.getCurrentHour(), time.getCurrentMinute());
                 Alarm.update(position, newAlarm);
 
-                Intent redirect = new Intent(AlarmActivity.this, MainActivity.class);
 
-                //startActivity(redirect);
 
                 finish();
             }

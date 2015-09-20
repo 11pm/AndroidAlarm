@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     ListView list;
 
-    Runnable runner;
+    Button newAlarm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +46,12 @@ public class MainActivity extends AppCompatActivity {
         //get the alarm list
         list = (ListView) findViewById(R.id.alarmList);
 
+        //get the 'new alarm' button
+        newAlarm = (Button) findViewById(R.id.newAlarm);
 
         Alarm.save(new AlarmItem("", 7, 20));
 
-        Alarm.save(new AlarmItem("Coolio", 14, 10));
+        Alarm.save(new AlarmItem("Coolio", 17, 2));
 
         //initialize the adapter
         final ArrayAdapter<AlarmItem> arrayAdapter = new AlarmAdapter();
@@ -80,9 +83,20 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
+        newAlarm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(MainActivity.this, NewAlarm.class);
+
+                //go to the 'NewAlarm' screen
+                startActivity(intent);
+            }
+        });
+
         for(AlarmItem a : Alarm.get()){
             //start the alarm timer
-            alarmTimer(a);
+            TimerHelper.save(a);
         }
 
     }
@@ -137,6 +151,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+
 
     public void alarmTimer(AlarmItem alarm){
 
