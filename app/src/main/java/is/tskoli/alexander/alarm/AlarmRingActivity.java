@@ -1,16 +1,62 @@
 package is.tskoli.alexander.alarm;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 public class AlarmRingActivity extends AppCompatActivity {
+
+    Button dismiss;
+
+    Button snooze;
+
+    AlarmItem alarm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm_ring);
+
+        dismiss = (Button) findViewById(R.id.alarmRingDismiss);
+        snooze  = (Button) findViewById(R.id.alarmRingSnooze);
+
+        Intent intent = getIntent();
+
+        int id = intent.getIntExtra("id", 0);
+
+        //get the actual alarm object
+        alarm = Alarm.find(id);
+
+
+        dismiss.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                finish();
+
+            }
+        });
+
+
+        snooze.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //Alarm.snooze();
+                Log.wtf("wtf", alarm.details);
+                Alarm.snooze(alarm);
+
+                finish();
+
+            }
+        });
+
+
     }
 
     @Override

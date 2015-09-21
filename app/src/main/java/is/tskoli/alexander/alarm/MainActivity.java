@@ -37,7 +37,9 @@ public class MainActivity extends AppCompatActivity {
         //get the 'new alarm' button
         newAlarm = (Button) findViewById(R.id.newAlarm);
 
-        Alarm.save(new AlarmItem("Coolio", 21, 40));
+        //Alarm.save(new AlarmItem("Coolio", 21, 40));
+
+        //Log.wtf("wtf", String.valueOf(Alarm.get().get(0).id));
 
         //initialize the adapter
         final ArrayAdapter<AlarmItem> arrayAdapter = new AlarmAdapter();

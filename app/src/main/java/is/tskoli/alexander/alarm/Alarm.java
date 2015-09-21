@@ -31,8 +31,27 @@ public class Alarm {
         alarms.remove(position);
     }
 
+
+    public static void snooze(AlarmItem alarm){
+
+        AlarmItem newAlarm = alarm;
+        alarm.minute += 5;
+
+        //update the actual alarm object
+        update(alarm.id-1, alarm);
+
+        TimerHelper.snooze(alarm);
+
+    }
+
+    //get all alarms
     public static List<AlarmItem> get(){
         return alarms;
+    }
+
+    //get alarm by id
+    public static AlarmItem find(int id){
+        return alarms.get(id-1);
     }
 
 }
